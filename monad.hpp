@@ -21,7 +21,7 @@ S mreturn(const T &a)
 }
 
 
-
+//F is the final state
 template<typename F,typename S > //S requires to be variant of states with monostates
 bool guard(const S &v)
 {
@@ -33,12 +33,13 @@ bool guard(const S &v)
 template<typename S,typename F>
 S mbind(const S &v, F  &&k)
 {
-    return std::visit([k=k](auto &&arg)->S
+    //lambda templates from C++20
+    return std::visit([k=k]<typename T>(const T &arg)->S
     {
-        using TypeVariant = std::decay_t<decltype(arg)>;
+        //using TypeVariant = std::decay_t<decltype(arg)>;
         using TypeArg=typename decltype(k)::type;
 
-        if constexpr(std::is_same_v<TypeVariant, TypeArg>)
+        if constexpr(std::is_same_v<T, TypeArg>)
         {
             return k(arg);
         }
@@ -72,10 +73,11 @@ inline size_t findIndexInTuple(const tupleNextState<S> &tpl, const S &s)
 {
     size_t ret=std::numeric_limits<size_t>::max();
     size_t i=0;
-    for_each(tpl,[s=s,&i,&ret](auto &&arg)
+    //lambda templates from C++20
+    for_each(tpl,[s=s,&i,&ret]<typename T>(const T &arg)
     {
-        using TypeVariant = std::decay_t<decltype(arg)>;
-        using TypeArg=typename TypeVariant::type;
+
+        using TypeArg=typename T::type;
         if (std::holds_alternative<TypeArg>(s))
         {
             ret=i;
