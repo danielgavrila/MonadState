@@ -1,8 +1,12 @@
 #include <iostream>
 #include <chrono>
+#include "runit.hpp"
 #include "state.hpp"
+
 using namespace std;
 using namespace std::chrono;
+using namespace monadstate;
+using namespace orders;
 
 int main([[maybe_unused]] int argc,[[maybe_unused]]  char **argv)
 {

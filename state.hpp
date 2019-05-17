@@ -1,6 +1,12 @@
 #pragma once
 
 #include "monad.hpp"
+
+namespace ms=monadstate;
+
+namespace orders
+{
+
 struct item{
     std::string name;
     double price;
@@ -148,7 +154,7 @@ inline states transition (const initial & s)
     auto its=getOrder(ids.orderDBID_,ids.clientDBID_);
     auto ord=unprocessedOrder{ids,its};
 
-    return mreturn<states>(ord);
+    return ms::mreturn<states>(ord);
 }
 
 inline states transition (const unprocessedOrder & s)
@@ -157,12 +163,12 @@ inline states transition (const unprocessedOrder & s)
     if (ids.clientDBID_==20001)
     {
         auto ord=rejectedOrder{ids,"Client is bankrupt "};
-        return mreturn<states>(ord);
+        return ms::mreturn<states>(ord);
 
     }
     else {
         auto ord=acceptedOrder{ids,s.order_};
-        return mreturn<states>(ord);
+        return ms::mreturn<states>(ord);
 
     }
 
@@ -171,28 +177,31 @@ inline states transition (const unprocessedOrder & s)
 states transition (const rejectedOrder & s)
 {
     auto ord=final{s.dbIds_};
-    return mreturn<states>(ord);
+    return ms::mreturn<states>(ord);
 }
 
 states transition (const acceptedOrder & s)
 {
-    return mreturn<states>(s);
+    return ms::mreturn<states>(s);
 }
 
 states transition (const pendingOrder & s)
 {
-    return mreturn<states>(s);
+    return ms::mreturn<states>(s);
 }
 
 states transition (const fullfilledOrder & s)
 {
-    return mreturn<states>(s);
+    return ms::mreturn<states>(s);
 }
 
 
 states transition (const final & s)
 {
 
-    return mreturn<states>(s);
+    return ms::mreturn<states>(s);
+}
+
+
 }
 //////////////////////////////////////////////////

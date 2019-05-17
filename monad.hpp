@@ -1,19 +1,15 @@
 #pragma once
-#include <type_traits>
+
 #include <iostream>
-#include <string>
-#include <vector>
-#include <variant>
-#include <functional>
-#include <range/v3/all.hpp>
+#include <thread>
+#include "range/v3/all.hpp"
 
-
-#include "applyindextuple.h"
+#include "metafunction.hpp"
 
 
 
 
-
+namespace monadstate{
 
 
 
@@ -88,30 +84,6 @@ inline size_t findIndexInTuple(const tupleNextState<S> &tpl, const S &s)
     });
     return ret;
 }
-template <typename F,typename S>
-int runIt( S  start)
-{
-//auto start=states{initState};
-auto tpl=tupleNextState<S>();
-using namespace std::chrono;
-for(;;)
-{
-    std::cout << "Sleep"<< std::endl;
-    std::this_thread::sleep_for(1s);
-    auto idx=findIndexInTuple(tpl,start);
-    assert(idx!=std::numeric_limits<size_t>::max());
-    auto next=S();
-    applyIndex(tpl,idx,[&next,start=start](auto &&arg)
-    {
-        next=mbind(start,arg);
-    }
-    );
-    assert(false==std::holds_alternative<std::monostate>(next));
-    if(guard<F>(next))
-    {
-        break;
-    }
-    start=next;
-}
-return 0;
+
+
 }

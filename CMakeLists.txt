@@ -5,8 +5,7 @@ add_executable(${PROJECT_NAME} "main.cpp")
 
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
-    /usr/local/ssd/projects/ThirdParty/range-v3-master/include
-    /usr/local/ssd/projects/MetSvc/lib/AMQP/AMQPSerialize
+    /usr/local/ssd/projects/ThirdParty/range-v3-master/include    
     )
 
 target_compile_options(${PROJECT_NAME} PUBLIC -Wall -fconcepts -fdiagnostics-show-template-tree)
