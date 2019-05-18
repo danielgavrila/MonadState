@@ -182,7 +182,9 @@ states transition (const rejectedOrder & s)
 
 states transition (const acceptedOrder & s)
 {
-    return ms::mreturn<states>(s);
+    auto ord=fullfilledOrder{s.dbIds_,s.order_};
+
+    return ms::mreturn<states>(ord);
 }
 
 states transition (const pendingOrder & s)
@@ -192,7 +194,8 @@ states transition (const pendingOrder & s)
 
 states transition (const fullfilledOrder & s)
 {
-    return ms::mreturn<states>(s);
+    auto ord=final{s.dbIds_};
+    return ms::mreturn<states>(ord);
 }
 
 

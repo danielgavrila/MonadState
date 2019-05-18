@@ -53,7 +53,7 @@ struct nextState{
 
     S operator () (const T & s) const
     {
-        std::cout <<"operator () parameter: "<< typeid(decltype(s)).name()<<std::endl;
+        std::cout <<"the actual state is : "<< typeid(decltype(s)).name()<<std::endl;
         return transition (s);
     }
 

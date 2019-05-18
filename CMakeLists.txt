@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(StateMonad)
+project(MonadState)
 add_executable(${PROJECT_NAME} "main.cpp")
 
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE
